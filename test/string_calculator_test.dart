@@ -18,4 +18,10 @@ void main() {
     final result = stringCalculator.add('12,13');
     expect(result, equals(25));
   });
+
+  test('three numbers returns the sum of the numbers', () {
+    final result = stringCalculator.add('12,13,14');
+    expect(result, equals(39));
+  });
+
 }
