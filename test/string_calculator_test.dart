@@ -8,4 +8,9 @@ void main() {
     final result = stringCalculator.add('');
     expect(result, equals(0));
   });
+
+  test('single number returns the number', () {
+    final result = stringCalculator.add('12');
+    expect(result, equals(12));
+  });
 }
