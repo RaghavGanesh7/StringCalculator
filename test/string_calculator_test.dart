@@ -24,4 +24,8 @@ void main() {
     expect(result, equals(39));
   });
 
+  test('new line as delimiter', () {
+    final result = stringCalculator.add('12\n13\n14');
+    expect(result, equals(39));
+  });
 }
