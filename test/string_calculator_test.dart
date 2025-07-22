@@ -13,4 +13,9 @@ void main() {
     final result = stringCalculator.add('12');
     expect(result, equals(12));
   });
+
+  test('two numbers returns the sum of the numbers', () {
+    final result = stringCalculator.add('12,13');
+    expect(result, equals(25));
+  });
 }
