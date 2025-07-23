@@ -34,12 +34,12 @@ void main() {
   });
 
   test('custom delimiters with multiple characters', () {
-    final result = stringCalculator.add('//***\n1***2***3');
+    final result = stringCalculator.add('//^^\n1^^2^^3');
     expect(result, equals(6));
   });
 
   test('custom delimiters with multiple characters and spaces', () {
-    final result = stringCalculator.add('//[* ]\n1[* ]2[* ]3');
+    final result = stringCalculator.add('// &\n1 &2 &3');
     expect(result, equals(6));
   });
 
@@ -50,5 +50,16 @@ void main() {
   test('If numbers are not properly formatted, throw an exception', () {
     expect(()=>stringCalculator.add('//*\n1**3'), throwsA(isA<FormatException>()));
   });
+
+  test('Negative numbers are not allowed', () {
+    expect(()=>stringCalculator.add('-1,2'), throwsA(predicate((e) => e is FormatException && e.message == 'Negative numbers not allowed -1')));
+  });
   
+  test('Multiple negative numbers are not allowed', () {
+    expect(()=>stringCalculator.add('-1,3,-2'), throwsA(predicate((e) => e is FormatException && e.message == 'Negative numbers not allowed -1,-2')));
+  });
+
+  test('Negative numbers are not allowed with custom delimiter', () {
+    expect(()=>stringCalculator.add('//*\n-1*2'), throwsA(predicate((e) => e is FormatException && e.message == 'Negative numbers not allowed -1')));
+  });
 }

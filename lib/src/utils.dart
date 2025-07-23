@@ -25,4 +25,10 @@ List<int> parseNumbersWithDelimiter(String numbers, String delimiter) {
 }
 
 // Sums up a list of integers.
-int sumNumbers(List<int> numbers) => numbers.reduce((sum, number) => sum + number); 
+int sumNumbers(List<int> numbers) {
+  final negatives = numbers.where((n) => n < 0).toList();
+  if (negatives.isNotEmpty) {
+    throw FormatException('Negative numbers not allowed ${negatives.join(',')}');
+  }
+  return numbers.reduce((sum, number) => sum + number);
+} 
