@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:string_calculator/string_calculator.dart';
-
 void main() {
   StringCalculator stringCalculator = StringCalculator();
 
@@ -28,4 +27,28 @@ void main() {
     final result = stringCalculator.add('12\n13\n14');
     expect(result, equals(39));
   });
+
+  test('custom delimiters', () {
+    final result = stringCalculator.add('//;\n1;2');
+    expect(result, equals(3));
+  });
+
+  test('custom delimiters with multiple characters', () {
+    final result = stringCalculator.add('//***\n1***2***3');
+    expect(result, equals(6));
+  });
+
+  test('custom delimiters with multiple characters and spaces', () {
+    final result = stringCalculator.add('//[* ]\n1[* ]2[* ]3');
+    expect(result, equals(6));
+  });
+
+  test('If delimiter is not closed, throw an exception', () {
+    expect(()=>stringCalculator.add('//[*]\n1[*2[*3'), throwsA(isA<FormatException>()));
+  });
+
+  test('If numbers are not properly formatted, throw an exception', () {
+    expect(()=>stringCalculator.add('//*\n1**3'), throwsA(isA<FormatException>()));
+  });
+  
 }
